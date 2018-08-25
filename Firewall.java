@@ -17,6 +17,7 @@ public class Firewall {
 
     final static int PRIME = 92821; 
     final static int MAX_SIZE = 1073741824; 
+    final static int PRIME2 = 31; 
 
     public static void main(String[] args) {
         Firewall f = new Firewall("networkrules2.csv");
@@ -26,6 +27,7 @@ public class Firewall {
         System.out.println(f.accept_packet("outbound", "tcp", 450, "192.168.10.11"));
         System.out.println(f.accept_packet("inbound", "tcp", 81, "192.168.1.2")); //false 
         System.out.println(f.accept_packet("inbound", "udp", 24, "52.12.48.92")); //false 
+        System.out.println(f.accept_packet("inbound", "udp", 467, "0.0.0.0")); //true
     }
 
     public Firewall(String f) {
@@ -103,7 +105,7 @@ public class Firewall {
     }
 
     public int getLargeHash(String direction, String protocol, int port) {
-        return 31 * (direction.hashCode() + protocol.hashCode() + port);
+        return PRIME2 * (direction.hashCode() + protocol.hashCode() + port);
     }
 
     public void addRanges(int start, int end, long s, long e, String direction, String protocol) {
