@@ -18,6 +18,7 @@ public class Firewall {
     final static int PRIME = 92821; 
     final static int MAX_SIZE = 1073741824; 
     final static int PRIME2 = 31; 
+    final static int FIVEHUNDRED = 500; 
 
     public static void main(String[] args) {
         Firewall f = new Firewall("networkrules2.csv");
@@ -63,7 +64,7 @@ public class Firewall {
                     String end = range[1].replace(".", "");
                     long s = Long.parseLong(start);
                     long e = Long.parseLong(end);
-                    if ((e - s) <= 500) {
+                    if ((e - s) <= FIVEHUNDRED) {
                         addIPRange(s, e, direction, protocol, port);
                         continue;
                     }
@@ -79,7 +80,7 @@ public class Firewall {
                     String ipend = iprange[1].replace(".", "");
                     long s = Long.parseLong(ipstart);
                     long e = Long.parseLong(ipend);
-                    if ((e - s) < 500) {
+                    if ((e - s) < FIVEHUNDRED) {
                         addRanges(start, end, s, e, direction, protocol);
                         continue;
                     }
